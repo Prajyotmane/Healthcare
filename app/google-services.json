@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1065079735403",
+    "firebase_url": "https://healthcare-daec4.firebaseio.com",
+    "project_id": "healthcare-daec4",
+    "storage_bucket": "healthcare-daec4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065079735403:android:5b065c7c57a7d8485a9d2e",
+        "android_client_info": {
+          "package_name": "com.prajyotmane.healthcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065079735403-55rp2blu01j6u247vh50jna9qapm42u2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.prajyotmane.healthcare",
+            "certificate_hash": "bc480d17113259839a5248ef78cb1d3db2a48195"
+          }
+        },
+        {
+          "client_id": "1065079735403-tkv42en3i6p3raktoabl74n26psebo92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5DLjhIbU0lQstSoHXOrGaR1YLeUfAzbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065079735403-tkv42en3i6p3raktoabl74n26psebo92.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
