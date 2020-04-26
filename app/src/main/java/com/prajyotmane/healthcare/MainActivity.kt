@@ -13,11 +13,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mAuth = FirebaseAuth.getInstance()
-        if(mAuth?.currentUser!=null){
-            startActivity(Intent(this,HomePage::class.java))
-        }
-        else{
-            startActivity(Intent(this,LoginActivity::class.java))
+        if (mAuth?.currentUser != null) {
+            intent = Intent(this, HomePage::class.java)
+            this.finish()
+            startActivity(intent)
+        } else {
+            intent = Intent(this, LoginActivity::class.java)
+            this.finish()
+            startActivity(intent)
         }
     }
 }
