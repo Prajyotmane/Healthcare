@@ -34,6 +34,7 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DefaultHomePage()).commit()
     }
 
 
@@ -50,7 +51,7 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_appointments -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DefaultHomePage()).commit()
+            R.id.nav_Home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DefaultHomePage()).commit()
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, UserProfile()).commit()
         }
         drawer_layout.closeDrawer(GravityCompat.START)

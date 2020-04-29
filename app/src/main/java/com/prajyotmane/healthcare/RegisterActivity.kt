@@ -3,6 +3,7 @@ package com.prajyotmane.healthcare
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,20 +30,31 @@ class RegisterActivity : AppCompatActivity() {
 
     fun registerUser(view: View) {
         register_progress.setVisibility(View.VISIBLE)
-        var name = userName.text.trim().toString()
+        var fname = userFirstName.text.trim().toString()
+        var lname = userLastName.text.trim().toString()
         var email = userEmail.text.trim().toString()
         var contact = userContact.text.trim().toString()
 
         var password = userPassword.text.toString()
         var confpassword = userConfPassword.text.toString()
 
-        if (name.isEmpty()) {
-            userName.setError("Name cannot be empty")
+        if (fname.isEmpty()) {
+            userFirstName.setError("First Name cannot be empty")
+            register_progress.setVisibility(View.GONE)
+            return
+        }
+        if (lname.isEmpty()) {
+            userLastName.setError("Last Name cannot be empty")
             register_progress.setVisibility(View.GONE)
             return
         }
         if (email.isEmpty()) {
             userEmail.setError("Email cannot be empty")
+            register_progress.setVisibility(View.GONE)
+            return
+        }
+        if(!email.isEmpty() and !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            userEmail.setError("Email address is invalid")
             register_progress.setVisibility(View.GONE)
             return
         }
@@ -71,8 +83,6 @@ class RegisterActivity : AppCompatActivity() {
         ) { task ->
             if (task.isSuccessful) {
                 // Create a new user with a first and last name
-                var fname = name
-                var lname = name
                 var user = UserDataClass(fname, lname, email, contact)
 
                 var uID = mAuth.currentUser!!.uid

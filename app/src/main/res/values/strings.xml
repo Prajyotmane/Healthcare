@@ -4,7 +4,6 @@
     <string name="password_login">Password</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="api_key">AIzaSyBOvuyIVtsLmzsN1qrFuiEkXLkHc2I1Zb4</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
