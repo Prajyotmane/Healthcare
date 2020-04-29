@@ -7,20 +7,23 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.remote.Datastore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_register.*
 
 
 class RegisterActivity : AppCompatActivity() {
 
-    var db: FirebaseFirestore? = null
-    var mAuth: FirebaseAuth? = null
+    lateinit var db: DatabaseReference
+    lateinit var mAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        db = Firebase.firestore
+        db = FirebaseDatabase.getInstance().getReference("users")
         mAuth = FirebaseAuth.getInstance()
     }
 
@@ -63,50 +66,37 @@ class RegisterActivity : AppCompatActivity() {
             register_progress.setVisibility(View.GONE)
             return
         }
-        mAuth?.createUserWithEmailAndPassword(email, password)
-            ?.addOnCompleteListener(
-                this
-            ) { task ->
-                if (task.isSuccessful) {
-                    // Create a new user with a first and last name
-                    var user = mapOf<String, String>(
-                        "Name" to name,
-                        "Email" to email,
-                        "Contact" to contact
-                    )
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+            this
+        ) { task ->
+            if (task.isSuccessful) {
+                // Create a new user with a first and last name
+                var fname = name
+                var lname = name
+                var user = UserDataClass(fname, lname, email, contact)
 
-// Add a new document with a generated ID
-                    db?.collection("Users")?.add(user)?.addOnSuccessListener { documentReference ->
-                        Log.d(
-                            "UserRegistration",
-                            "DocumentSnapshot added with ID: ${documentReference.id}"
-                        )
-                        Toast.makeText(this, "Registration was successful!", Toast.LENGTH_SHORT)
-                            .show()
-                        intent = Intent(this, HomePage::class.java)
-                        register_progress.visibility = View.GONE
-                        this.finish()
-                        startActivity(intent)
+                var uID = mAuth.currentUser!!.uid
+                db.child(uID).setValue(user)
+                Toast.makeText(
+                    this,
+                    "Registration was successful!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                var intent = Intent(this, HomePage::class.java)
+                this.finish()
+                startActivity(intent)
 
-                    }?.addOnFailureListener { e ->
-                        Log.d("UserRegistration", "Error adding document", e)
-                        Toast.makeText(
-                            this,
-                            "An error occured. Please try again.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.d("UserRegistration", "Authenticatiion Task failed" + " " + task.exception)
-                    Toast.makeText(
-                        this,
-                        "An account with email: " + email + " already exist.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+            } else {
+                // If sign in fails, display a message to the user.
+                Log.d("UserRegistration", "Authenticatiion Task failed" + " " + task.exception)
+                Toast.makeText(
+                    this,
+                    "An account with email: " + email + " already exist.",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                }
             }
+        }
         register_progress.setVisibility(View.GONE)
 
     }
