@@ -64,8 +64,9 @@ class DefaultHomePage : Fragment() {
         var fields = arrayListOf(Place.Field.ID, Place.Field.NAME)
         view.button.setOnClickListener {
             mAuth?.signOut()
-            var intent = Intent(activity, MainActivity::class.java)
+            var intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
 
         view.location_layout.setOnClickListener {
