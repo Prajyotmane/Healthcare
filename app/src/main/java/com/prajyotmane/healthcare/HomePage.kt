@@ -53,6 +53,13 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         when(item.itemId){
             R.id.nav_Home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DefaultHomePage()).commit()
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, UserProfile()).commit()
+            R.id.nav_logout -> {
+                mAuth?.signOut()
+                var intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true

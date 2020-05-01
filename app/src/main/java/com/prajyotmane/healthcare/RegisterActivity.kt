@@ -93,8 +93,9 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 var intent = Intent(this, HomePage::class.java)
-                this.finish()
+
                 startActivity(intent)
+                finish()
 
             } else {
                 // If sign in fails, display a message to the user.
@@ -113,7 +114,7 @@ class RegisterActivity : AppCompatActivity() {
 
     fun goToLoginPage(view: View) {
         intent = Intent(this, LoginActivity::class.java)
-        this.finish()
         startActivity(intent)
+        finish()
     }
 }

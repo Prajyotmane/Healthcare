@@ -5,42 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DefaultHomePage"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="2dp">
+        <LinearLayout
+            android:id="@+id/location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    <!-- TODO: Update blank fragment layout -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@android:drawable/ic_menu_mylocation" />
 
-    <LinearLayout
-        android:id="@+id/location_layout"
+            <TextView
+                android:id="@+id/curent_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="textStart"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/doctor_category_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:text="Select Category"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/course_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:src="@android:drawable/ic_menu_mylocation" />
-
-        <TextView
-            android:id="@+id/curent_location"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:editable="false"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_gravity="center"/>
+        </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

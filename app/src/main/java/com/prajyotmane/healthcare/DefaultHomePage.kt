@@ -9,6 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -18,6 +21,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.view.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.view.curent_location
@@ -30,6 +34,11 @@ class DefaultHomePage : Fragment() {
     var AUTOCOMPLETE_REQUEST_CODE = 1
     lateinit var db: DatabaseReference
     lateinit var uID: String
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
@@ -62,12 +71,7 @@ class DefaultHomePage : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_default_home_page, container, false)
         var fields = arrayListOf(Place.Field.ID, Place.Field.NAME)
-        view.button.setOnClickListener {
-            mAuth?.signOut()
-            var intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
-        }
+
 
         view.location_layout.setOnClickListener {
 
@@ -78,6 +82,15 @@ class DefaultHomePage : Fragment() {
                 .build(activity!!.applicationContext)
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
         }
+
+        var dataSet = resources.getStringArray(R.array.category)
+        viewManager = GridLayoutManager(context,2)
+        viewAdapter = DoctorListAdapter(dataSet)
+
+        recyclerView = view.findViewById(R.id.course_list)
+        recyclerView.layoutManager = viewManager
+        recyclerView.adapter = viewAdapter
+
         return view
     }
 
@@ -96,6 +109,7 @@ class DefaultHomePage : Fragment() {
             } else if (resultCode === AutocompleteActivity.RESULT_CANCELED) {
                 // The user canceled the operation.
             }
+
         }
     }
 

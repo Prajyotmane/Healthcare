@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>Gynaecologist</item>
+        <item>Dentist</item>
+        <item>Paediatrician</item>
+        <item>General Physician</item>
+    </string-array>
+</resources>
