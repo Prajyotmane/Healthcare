@@ -73,6 +73,7 @@ class DefaultHomePage : Fragment() {
         var fields = arrayListOf(Place.Field.ID, Place.Field.NAME)
 
 
+
         view.location_layout.setOnClickListener {
 
             var intent = Autocomplete.IntentBuilder(
@@ -82,7 +83,6 @@ class DefaultHomePage : Fragment() {
                 .build(activity!!.applicationContext)
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
         }
-
         var dataSet = resources.getStringArray(R.array.category)
         viewManager = GridLayoutManager(context,2)
         viewAdapter = DoctorListAdapter(dataSet)
