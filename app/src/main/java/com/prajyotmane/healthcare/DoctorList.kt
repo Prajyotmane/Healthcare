@@ -63,7 +63,7 @@ class DoctorList : AppCompatActivity() {
                 else{
                     no_result_found.visibility = View.GONE
                     viewManager = LinearLayoutManager(applicationContext)
-                    viewAdapter = DoctorListAdapter(doctorList)
+                    viewAdapter = DoctorListAdapter(doctorList,applicationContext)
                     recyclerView = findViewById<RecyclerView>(R.id.doctorListRecyclerView)
                     recyclerView.layoutManager = viewManager
                     recyclerView.adapter = viewAdapter

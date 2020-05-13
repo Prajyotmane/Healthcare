@@ -1,5 +1,7 @@
 package com.prajyotmane.healthcare
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class DoctorListAdapter(
-    private val dataSet: ArrayList<ArrayList<String>>
+    private val dataSet: ArrayList<ArrayList<String>>,
+    private var context: Context
 ) :
     RecyclerView.Adapter<DoctorListAdapter.MyViewHolder>() {
     lateinit var parent: ViewGroup
@@ -37,7 +40,9 @@ class DoctorListAdapter(
         holder.doctorContact.text = dataSet[position][3]
 
         holder.doctorListCard.setOnClickListener {
-
+            var intent = Intent(context,DoctorDetailInfo::class.java)
+            intent.putExtra("ID",dataSet[position][0])
+            context.startActivity(intent)
         }
     }
 
