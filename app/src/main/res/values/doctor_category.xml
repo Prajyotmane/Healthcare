@@ -5,5 +5,11 @@
         <item>Dentist</item>
         <item>Paediatrician</item>
         <item>General Physician</item>
+        <item>Surgeon</item>
+        <item>Orthopedist</item>
+        <item>Neurologist</item>
+        <item>Cardiologist</item>
+        <item>Cosmetologist</item>
+        <item>Psychiatrist</item>
     </string-array>
 </resources>

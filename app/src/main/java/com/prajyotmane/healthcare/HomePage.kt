@@ -3,16 +3,12 @@ package com.prajyotmane.healthcare
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home_page.*
-import kotlinx.android.synthetic.main.nav_header.*
 
 class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,7 +40,13 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             drawer_layout.closeDrawer(GravityCompat.START)
         }
         else{
-            super.onBackPressed()
+            val count = supportFragmentManager.backStackEntryCount
+            if (count == 0) {
+                super.onBackPressed()
+                //additional code
+            } else {
+                supportFragmentManager.popBackStack()
+            }
         }
 
     }

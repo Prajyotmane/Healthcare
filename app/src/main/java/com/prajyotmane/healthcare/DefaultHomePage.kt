@@ -1,6 +1,6 @@
 package com.prajyotmane.healthcare
 
-import android.R.attr
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -21,12 +22,10 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.view.*
-import kotlinx.android.synthetic.main.fragment_default_home_page.view.curent_location
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class DefaultHomePage : Fragment() {
@@ -37,23 +36,30 @@ class DefaultHomePage : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
+    private var currentCity:String? = null
+    lateinit var dataSet: Array<String>
+    lateinit var loading: LoadingDialogBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
         uID = mAuth.currentUser!!.uid
+        dataSet = resources.getStringArray(R.array.category)
+        loading = LoadingDialogBox(activity as Activity)
         db = FirebaseDatabase.getInstance().getReference("users")
         Places.initialize(activity!!.applicationContext, getString(R.string.api_key), Locale.US)
+        loading.startLoading()
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var currentCity =
-                    dataSnapshot.child("users").child(uID).child("city").getValue()
+                currentCity =
+                    dataSnapshot.child("users").child(uID).child("city").getValue().toString()
                 if (currentCity==null) {
                     curent_location.setText("Select your city")
                 } else {
                     curent_location.setText(currentCity.toString())
                 }
+                loadRecyclerView()
+                loading.cancelLoading()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -83,13 +89,6 @@ class DefaultHomePage : Fragment() {
                 .build(activity!!.applicationContext)
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
         }
-        var dataSet = resources.getStringArray(R.array.category)
-        viewManager = GridLayoutManager(context,2)
-        viewAdapter = DoctorListAdapter(dataSet)
-
-        recyclerView = view.findViewById(R.id.course_list)
-        recyclerView.layoutManager = viewManager
-        recyclerView.adapter = viewAdapter
 
         return view
     }
@@ -99,10 +98,11 @@ class DefaultHomePage : Fragment() {
         if (requestCode === AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode === AutocompleteActivity.RESULT_OK) {
                 val place = Autocomplete.getPlaceFromIntent(data!!)
-
                 db.child("users").child(uID).child("city").setValue(place.name)
                 curent_location.setText(place.name)
+                currentCity = place.name
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
+                loadRecyclerView()
             } else if (resultCode === AutocompleteActivity.RESULT_ERROR) {
                 val status: Status = Autocomplete.getStatusFromIntent(data!!)
                 Log.i(TAG, status.getStatusMessage())
@@ -111,6 +111,15 @@ class DefaultHomePage : Fragment() {
             }
 
         }
+    }
+    fun loadRecyclerView()
+    {
+        viewManager = GridLayoutManager(context,2)
+        viewAdapter = DoctorCategoryListAdapter(dataSet,context!!,currentCity.toString())
+
+        recyclerView = course_list
+        recyclerView.layoutManager = viewManager
+        recyclerView.adapter = viewAdapter
     }
 
 }

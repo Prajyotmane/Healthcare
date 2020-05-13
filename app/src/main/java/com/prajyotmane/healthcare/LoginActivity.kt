@@ -18,15 +18,20 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
     }
     fun loginUser(view:View){
+        var loading = LoadingDialogBox(this)
+        loading.startLoading()
         var email = emailId.text.trim().toString()
         var password = passwd.text.trim().toString()
 
         if (email.isEmpty()) {
             emailId.setError("Email cannot be empty")
+            loading.cancelLoading()
             return
         }
         if (password.isEmpty()) {
             passwd.setError("Password cannot be empty")
+            loading.cancelLoading()
+
             return
         }
 
@@ -37,10 +42,11 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this,"Login successful", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this,HomePage::class.java))
+                    loading.cancelLoading()
                     finish()
 
-
                 } else {
+                    loading.cancelLoading()
                     // If sign in fails, display a message to the user.
                     Toast.makeText(this,"Invalid Email ID or Password", Toast.LENGTH_SHORT).show()
                 }
@@ -50,5 +56,6 @@ class LoginActivity : AppCompatActivity() {
     fun registerUser(view:View){
         intent = Intent(this,RegisterActivity::class.java)
         finish()
-        startActivity(intent)    }
+        startActivity(intent)
+    }
 }

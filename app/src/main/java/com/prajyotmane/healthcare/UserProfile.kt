@@ -1,5 +1,6 @@
 package com.prajyotmane.healthcare
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -22,16 +23,16 @@ class UserProfile : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var mAuth: FirebaseAuth
+    lateinit var loading: LoadingDialogBox
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
-
+        loading = LoadingDialogBox(activity as Activity)
         var uID = mAuth.currentUser!!.uid
         var db = FirebaseDatabase.getInstance().getReference("users")
-        Log.d("UID testing", uID)
-
+        loading.startLoading()
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var fname =
@@ -78,14 +79,15 @@ class UserProfile : Fragment() {
                 else{
                     zip.text = savedZip.toString()
                 }
+                loading.cancelLoading()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
+                loading.cancelLoading()
                 Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }
         db.addValueEventListener(postListener)
-
     }
 
     override fun onCreateView(
