@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConfirmSlot"></activity>
+        <activity android:name=".MyAppointments"></activity>
+        <activity android:name=".ConfirmSlot" />
         <activity android:name=".ConfirmBooking" />
         <activity android:name=".BookAppointment" />
         <activity android:name=".DoctorDetailInfo" />

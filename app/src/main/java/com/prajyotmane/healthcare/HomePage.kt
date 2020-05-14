@@ -61,6 +61,10 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 startActivity(intent)
                 finish()
             }
+            R.id.nav_appointments -> {
+                var intent = Intent(this, MyAppointments::class.java)
+                startActivity(intent)
+            }
 
         }
         drawer_layout.closeDrawer(GravityCompat.START)

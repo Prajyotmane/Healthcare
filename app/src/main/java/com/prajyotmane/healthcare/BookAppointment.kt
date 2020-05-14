@@ -1,6 +1,7 @@
 package com.prajyotmane.healthcare
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,7 +16,13 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.activity_book_appointment.*
 import kotlinx.android.synthetic.main.activity_doctor_list.*
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.userContact
+import kotlinx.android.synthetic.main.activity_register.userFirstName
+import kotlinx.android.synthetic.main.activity_register.userLastName
+import kotlinx.android.synthetic.main.activity_user_info_update.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.*
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,20 +31,23 @@ class BookAppointment : AppCompatActivity() {
     lateinit var mAuth: FirebaseAuth
     lateinit var db: DatabaseReference
     lateinit var dID: String
+    lateinit var uID: String
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var currentCity: String? = null
     var dataSet: MutableSet<String> = mutableSetOf<String>()
     lateinit var loading: LoadingDialogBox
     var dateFormat = SimpleDateFormat("dd_MM_yyyy")
+    lateinit var slotData: SlotDataClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_appointment)
         book_appointment.isEnabled = false
-
+        slotData = SlotDataClass()
         dID = intent.getStringExtra("ID")
+        mAuth = FirebaseAuth.getInstance()
+        uID = mAuth.currentUser!!.uid
         loading = LoadingDialogBox(this)
         db = FirebaseDatabase.getInstance().getReference("Doctor")
         var startDate = Calendar.getInstance()
@@ -98,14 +108,32 @@ class BookAppointment : AppCompatActivity() {
 
     fun loadRecyclerView() {
         viewManager = GridLayoutManager(this, 3)
-        viewAdapter = SlotsAdapter(dataSet, this)
+        viewAdapter = SlotsAdapter(dataSet, slotData,this)
 
         recyclerView = slots_view
         recyclerView.layoutManager = viewManager
         recyclerView.adapter = viewAdapter
     }
 
-    fun bookAppointment(view: View){
+    fun bookAppointment(view: View) {
+        loading.startLoading()
+        var dbRef = FirebaseDatabase.getInstance().getReference("users")
+        dbRef.child(uID).child("Appointments").child(dateFormat.format(currentDate?.time))
+            .child(slotData.slotID).setValue(dID)
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Doctor")
+        dbRef.child(dID).child("Appointments").child(dateFormat.format(currentDate?.time))
+            .child(slotData.slotID).setValue(uID)
+
+        var intent = Intent(this,ConfirmSlot::class.java)
+        intent.putExtra("ID", dID)
+        intent.putExtra("Slot", slotData.slot)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        loading.cancelLoading()
+        this.finish()
 
     }
 

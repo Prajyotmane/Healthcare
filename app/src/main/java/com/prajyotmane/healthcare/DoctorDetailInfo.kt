@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_doctor_detail_info.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
@@ -28,7 +30,10 @@ class DoctorDetailInfo : AppCompatActivity() {
         loading = LoadingDialogBox(this)
         uID = mAuth.currentUser!!.uid
         doctorID = intent.getStringExtra("ID")
-
+        var storageRef = FirebaseStorage.getInstance().getReference("pics").child(doctorID)
+        Glide.with(applicationContext).load(storageRef)
+            .into(profile_pic)
+        //Log.d("Image", temp.bucket + " " + temp.path)
         var db = FirebaseDatabase.getInstance().getReference("Doctor")
         loading.startLoading()
         val postListener = object : ValueEventListener {
@@ -55,25 +60,7 @@ class DoctorDetailInfo : AppCompatActivity() {
                 dinfo_name.setText(fname.toString() + " " + lname.toString())
                 dinfo_contact.setText(email.toString())
                 dinfo_address.setText(address1.toString() + " " + address2.toString())
-                /*
-                if(adrs==null){
-                    address.text = "Not specified"
-                }
-                else{
-                    address.text = adrs.toString()
-                }
-                if(savedCity==null){
-                    city.text = "Not specified"
-                }
-                else{
-                    city.text = savedCity.toString()
-                }
-                if(savedZip==null){
-                    zip.text = "Not specified"
-                }
-                else{
-                    zip.text = savedZip.toString()
-                }*/
+
                 loading.cancelLoading()
             }
 
@@ -86,7 +73,7 @@ class DoctorDetailInfo : AppCompatActivity() {
     }
 
     fun bookAppointment(view: View) {
-        var intent = Intent(this,BookAppointment::class.java)
+        var intent = Intent(this, BookAppointment::class.java)
         intent.putExtra("ID", doctorID)
         startActivity(intent)
         //Toast.makeText(this, "Clicked", Toast.LENGTH_LONG).show()

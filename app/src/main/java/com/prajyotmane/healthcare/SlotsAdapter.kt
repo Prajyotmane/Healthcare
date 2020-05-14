@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SlotsAdapter(
     private val dataSet: MutableSet<String>,
+    private var slotData: SlotDataClass,
     private var context: Context
 ) :
     RecyclerView.Adapter<SlotsAdapter.MyViewHolder>() {
     lateinit var parent: ViewGroup
     var slotList = context.resources.getStringArray(R.array.slots)
-    var selected: MyViewHolder? = null
-    var selectedID: String? = null
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -56,11 +56,12 @@ class SlotsAdapter(
                 Toast.makeText(context, "The slot is unavailable", Toast.LENGTH_LONG).show()
 
             } else {
-                if (selected != null) {
-                    selected?.slotCard?.setBackgroundColor(context.getColor(R.color.green))
+                if (slotData.holder != null) {
+                    slotData.holder?.slotCard?.setBackgroundColor(context.getColor(R.color.green))
                 }
-                selectedID = position.toString()
-                selected = holder
+                slotData.slotID = position.toString()
+                slotData.holder = holder
+                slotData.slot = slotList[position]
                 (context as Activity).findViewById<Button>(R.id.book_appointment).isEnabled = true
                 holder.slotCard.setBackgroundColor(context.getColor(R.color.selected))
 
