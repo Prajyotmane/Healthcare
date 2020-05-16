@@ -36,7 +36,7 @@ class DefaultHomePage : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var currentCity:String? = null
+    private var currentCity:Any? = null
     lateinit var dataSet: Array<String>
     lateinit var loading: LoadingDialogBox
 
@@ -52,9 +52,9 @@ class DefaultHomePage : Fragment() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 currentCity =
-                    dataSnapshot.child("users").child(uID).child("city").getValue().toString()
+                    dataSnapshot.child(uID).child("city").getValue()
                 if (currentCity==null) {
-                    curent_location.setText("Select your city")
+                    curent_location.setText("Select your city here")
                 } else {
                     curent_location.setText(currentCity.toString())
                 }
@@ -98,7 +98,7 @@ class DefaultHomePage : Fragment() {
         if (requestCode === AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode === AutocompleteActivity.RESULT_OK) {
                 val place = Autocomplete.getPlaceFromIntent(data!!)
-                db.child("users").child(uID).child("city").setValue(place.name)
+                db.child(uID).child("city").setValue(place.name)
                 curent_location.setText(place.name)
                 currentCity = place.name
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)

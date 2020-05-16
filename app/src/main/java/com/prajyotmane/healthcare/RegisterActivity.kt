@@ -1,7 +1,9 @@
 package com.prajyotmane.healthcare
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -21,15 +23,19 @@ class RegisterActivity : AppCompatActivity() {
 
     lateinit var db: DatabaseReference
     lateinit var mAuth: FirebaseAuth
+    lateinit var loading:LoadingDialogBox
+    private lateinit var storedData: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        loading = LoadingDialogBox(this)
         db = FirebaseDatabase.getInstance().getReference("users")
+        storedData = PreferenceManager.getDefaultSharedPreferences(this)
         mAuth = FirebaseAuth.getInstance()
     }
 
     fun registerUser(view: View) {
-        register_progress.setVisibility(View.VISIBLE)
+        loading.startLoading()
         var fname = userFirstName.text.trim().toString()
         var lname = userLastName.text.trim().toString()
         var email = userEmail.text.trim().toString()
@@ -40,42 +46,47 @@ class RegisterActivity : AppCompatActivity() {
 
         if (fname.isEmpty()) {
             userFirstName.setError("First Name cannot be empty")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
         if (lname.isEmpty()) {
             userLastName.setError("Last Name cannot be empty")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
         if (email.isEmpty()) {
             userEmail.setError("Email cannot be empty")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
         if(!email.isEmpty() and !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             userEmail.setError("Email address is invalid")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
         if (contact.isEmpty()) {
             userContact.setError("Contact number cannot be enpty")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
+
         if (password.isEmpty()) {
-            userPassword.setError("Password cannot be enpty")
+            userPassword.setError("Password cannot be empty")
             register_progress.setVisibility(View.GONE)
+            return
+        }else if(password.length<6){
+            userPassword.setError("Password should be at least 6 characters")
+            loading.cancelLoading()
             return
         }
         if (confpassword.isEmpty()) {
             userConfPassword.setError("Please enter password to confirm")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
         if (!password.isEmpty() && !confpassword.isEmpty() && !password.equals(confpassword)) {
             userPassword.setError("Password and confirm password should match")
-            register_progress.setVisibility(View.GONE)
+            loading.cancelLoading()
             return
         }
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
@@ -92,6 +103,9 @@ class RegisterActivity : AppCompatActivity() {
                     "Registration was successful!",
                     Toast.LENGTH_SHORT
                 ).show()
+                val storeData = storedData.edit()
+                storeData.putString("Role", "1")
+                storeData.commit()
                 var intent = Intent(this, HomePage::class.java)
 
                 startActivity(intent)

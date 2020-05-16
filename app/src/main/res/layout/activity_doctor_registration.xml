@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d3d3d3"
+    android:theme="@style/AppTheme"
+    tools:context=".DoctorRegistration"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/regPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_reg_page"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/docFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_first_name"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="100dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/fnameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/first_name_text"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="136dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_last_name"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="217dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/lnameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/last_name_text"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="273dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_email"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="471dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email_text"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="513dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_password"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="598dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="@string/password_text"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="653dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docAddr1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_address1"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="723dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/addr1Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:hint="@string/addr1_text"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="795dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docAddr2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_address2"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="890dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/addr2Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:hint="@string/addr2_text"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="960dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_city"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="1055dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/cityText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/city_text"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="1102dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_state"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="1206dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/stateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/state_text"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="1260dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docPincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_pincode"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="1365dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/pinText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/pin_text"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="1431dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/docSpecialization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_specialization"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="1550dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerSpecialization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"/>
+
+        <Button
+            android:id="@+id/docRegButton"
+            android:layout_width="206dp"
+            android:layout_height="63dp"
+            android:text="@string/doc_submit_button" />
+
+        <ProgressBar
+            android:id="@+id/register_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

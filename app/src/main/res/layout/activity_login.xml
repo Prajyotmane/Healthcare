@@ -4,26 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="#14000000">
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
+        android:id="@+id/loginPage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Login"
-        android:textAllCaps="true"
+        android:text="@string/signin"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constrainedHeight="false"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.479"
-        app:layout_editor_absoluteX="50dp"
-        app:layout_editor_absoluteY="50dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -40,7 +35,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="#272224">
 
             <EditText
                 android:id="@+id/emailId"
@@ -54,7 +50,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="#272224">
 
             <EditText
                 android:id="@+id/passwd"
@@ -71,15 +68,16 @@
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/doc_login_button"
             android:onClick="loginUser"
+            android:layout_margin="10dp"
             />
 
         <Button
             android:id="@+id/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="@string/doc_login_reg"
             android:onClick="registerUser"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

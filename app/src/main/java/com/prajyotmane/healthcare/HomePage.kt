@@ -57,7 +57,7 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, UserProfile()).commit()
             R.id.nav_logout -> {
                 mAuth?.signOut()
-                var intent = Intent(this, LoginActivity::class.java)
+                var intent = Intent(this, WelcomePage::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DoctorProfileFragment"
+    android:orientation="vertical"
+    android:background="#14000000">
+
+    <TextView
+        android:id="@+id/profile_doctitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Your Profile"
+        android:textAllCaps="true"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:layout_marginTop="92dp"
+        android:padding="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/profile_doctitle"
+        tools:layout_editor_absoluteX="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/image_profile_view"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TableLayout
+                android:id="@+id/informationTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:clipToPadding="false"
+                android:padding="10dp">
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docFname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docFname"
+                        android:text="@string/doc_first_name"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/doctorFname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="5dp"
+                        android:maxLength="30"
+                        android:textSize="16sp" />
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docLname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docLname"
+                        android:text="@string/doc_last_name"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/doctorLname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="5dp"
+                        android:maxLength="30"
+                        android:textSize="16sp" />
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docEmailLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docEmailLabel"
+                        android:text="@string/doc_email"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/doctorEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docDescription"
+                        android:text="Description"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docDescriptionTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docDegree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docDegree"
+                        android:text="Degree"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docDegreeTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docExperience"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docExperience"
+                        android:text="Years of Experience"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docExpTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/doctorAddr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/doctorAddr1"
+                        android:text="@string/doc_address1"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/doctorAddr1Txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/doctorAddr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/doctorAddr2"
+                        android:text="@string/doc_address2"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/doctorAddr2Txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docCityLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docCityLabel"
+                        android:text="@string/doc_city"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docCityTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docStateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docStateLabel"
+                        android:text="@string/doc_state"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docStateTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docZipLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docZipLabel"
+                        android:text="@string/doc_pincode"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docZipTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/docSpclLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:labelFor="@id/docSpclLabel"
+                        android:text="@string/doc_specialization"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/docSpclTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp" />
+
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/updateDocInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_update_profile"
+            android:layout_gravity="center"
+            android:layout_margin="5dp" />
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

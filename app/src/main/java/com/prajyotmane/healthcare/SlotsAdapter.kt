@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SlotsAdapter(
     private val dataSet: MutableSet<String>,
+    private val myBookings: MutableList<String>,
     private var slotData: SlotDataClass,
     private var context: Context
 ) :
@@ -46,6 +47,9 @@ class SlotsAdapter(
             holder.slotStatue.text = "Unavailable"
             holder.slotCard.setCardBackgroundColor(context.getColor(R.color.red))
 
+        } else if (position.toString() in myBookings) {
+            holder.slotStatue.text = "Conflict"
+            holder.slotCard.setCardBackgroundColor(context.getColor(R.color.blue))
         } else {
             holder.slotStatue.text = "Available"
             holder.slotCard.setCardBackgroundColor(context.getColor(R.color.green))
@@ -54,6 +58,13 @@ class SlotsAdapter(
         holder.slotCard.setOnClickListener {
             if (holder.slotStatue.text == "Unavailable") {
                 Toast.makeText(context, "The slot is unavailable", Toast.LENGTH_LONG).show()
+
+            } else if (holder.slotStatue.text == "Conflict") {
+                Toast.makeText(
+                    context,
+                    "The slot is at the same time as one of your booking. Please cancel it first to book a new appointment.",
+                    Toast.LENGTH_LONG
+                ).show()
 
             } else {
                 if (slotData.holder != null) {

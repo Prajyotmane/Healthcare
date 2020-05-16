@@ -30,12 +30,14 @@ class BookAppointment : AppCompatActivity() {
     var currentDate: Calendar? = Calendar.getInstance()
     lateinit var mAuth: FirebaseAuth
     lateinit var db: DatabaseReference
+    lateinit var udb: DatabaseReference
     lateinit var dID: String
     lateinit var uID: String
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     var dataSet: MutableSet<String> = mutableSetOf<String>()
+    var myBokings:MutableList<String> = mutableListOf<String>()
     lateinit var loading: LoadingDialogBox
     var dateFormat = SimpleDateFormat("dd_MM_yyyy")
     lateinit var slotData: SlotDataClass
@@ -50,14 +52,15 @@ class BookAppointment : AppCompatActivity() {
         uID = mAuth.currentUser!!.uid
         loading = LoadingDialogBox(this)
         db = FirebaseDatabase.getInstance().getReference("Doctor")
+        udb = FirebaseDatabase.getInstance().getReference("users")
         var startDate = Calendar.getInstance()
         var endDate = Calendar.getInstance()
-        startDate.add(Calendar.DATE, 0)
-        endDate.add(Calendar.DATE, 2)
-
+        startDate.add(Calendar.DATE, 1)
+        endDate.add(Calendar.DATE, 4)
+        currentDate = startDate
         var horizontalCalendar =
             HorizontalCalendar.Builder(this, R.id.calendar_view).range(startDate, endDate)
-                .datesNumberOnScreen(1).mode(HorizontalCalendar.Mode.DAYS)
+                .datesNumberOnScreen(3).mode(HorizontalCalendar.Mode.DAYS)
                 .defaultSelectedDate(startDate).build()
 
         fetchAppointmentList(dateFormat.format(startDate.time))
@@ -68,6 +71,7 @@ class BookAppointment : AppCompatActivity() {
                     currentDate = date
                     book_appointment.isEnabled = false
                     dataSet = mutableSetOf<String>()
+                    myBokings = mutableListOf<String>()
                     fetchAppointmentList(dateFormat.format(date?.time))
                     Log.d("Date", dateFormat.format(date?.time))
 
@@ -104,11 +108,36 @@ class BookAppointment : AppCompatActivity() {
         }
         db.addListenerForSingleValueEvent(postListener)
 
+        val postListenerUser = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.d("Date Key", appointDate.toString())
+
+                var aptList =
+                    dataSnapshot.child(uID).child("Appointments").child(appointDate.toString())
+
+                for (snapshot in aptList.children) {
+                    myBokings.add(snapshot.key.toString())
+                    Log.d("Key", snapshot.key.toString())
+                }
+
+                //Populate RecyclerView with courses selected by the user
+                loading.cancelLoading()
+                loadRecyclerView()
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                loading.cancelLoading()
+                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        udb.addListenerForSingleValueEvent(postListenerUser)
+
     }
 
     fun loadRecyclerView() {
         viewManager = GridLayoutManager(this, 3)
-        viewAdapter = SlotsAdapter(dataSet, slotData,this)
+        viewAdapter = SlotsAdapter(dataSet, myBokings,slotData, this)
 
         recyclerView = slots_view
         recyclerView.layoutManager = viewManager
@@ -125,7 +154,7 @@ class BookAppointment : AppCompatActivity() {
         dbRef.child(dID).child("Appointments").child(dateFormat.format(currentDate?.time))
             .child(slotData.slotID).setValue(uID)
 
-        var intent = Intent(this,ConfirmSlot::class.java)
+        var intent = Intent(this, ConfirmSlot::class.java)
         intent.putExtra("ID", dID)
         intent.putExtra("Slot", slotData.slot)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

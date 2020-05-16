@@ -20,7 +20,6 @@ class DoctorCategoryListAdapter(
 ) :
     RecyclerView.Adapter<DoctorCategoryListAdapter.MyViewHolder>() {
     lateinit var parent: ViewGroup
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,24 +31,28 @@ class DoctorCategoryListAdapter(
 
         //Setting up ViewGroup to global variable. I have used this for context in Toast
         this.parent = parent
-
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         //Populating view in holder for recyclerView
+        var title = dataSet[position].split(" ").joinToString("_").toLowerCase()
+        var id =
+            context.resources.getIdentifier(title, "drawable", context.packageName)
+
+
         holder.doctorCategoty.text = dataSet[position]
+        holder.doctorLogo.setImageResource(id)
+        //Log.d("Image", id.toString())
         holder.categotyCard.setOnClickListener {
             Log.d("Selected", holder.doctorCategoty.text.toString())
-            if(!city.isNullOrBlank()){
-                var intent = Intent(context,DoctorList::class.java)
+            if (city!="null") {
+                var intent = Intent(context, DoctorList::class.java)
                 intent.putExtra("city", city)
                 intent.putExtra("category", dataSet[position])
                 context.startActivity(intent)
-            }
-            else{
-                Toast.makeText(context, "Please select your city first",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Please select your city first", Toast.LENGTH_LONG).show()
             }
 
 

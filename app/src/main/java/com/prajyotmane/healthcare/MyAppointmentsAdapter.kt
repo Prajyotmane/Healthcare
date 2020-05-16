@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
+import com.squareup.picasso.Picasso
 
 
 class MyAppointmentsAdapter(
@@ -44,11 +45,18 @@ class MyAppointmentsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         //Populating view in holder for recyclerView
-        holder.doctorName.text = dataSet[position][1] + " " + dataSet[position][5]
+        holder.doctorName.text = dataSet[position][1]
+        holder.dcategory.text =  dataSet[position][5]
         holder.doctorAddress.text = dataSet[position][4]
         holder.doctorContact.text = dataSet[position][2]
-        holder.date.text = dataSet[position][6]
-        holder.slot.text = slotArray[dataSet[position][7].toInt()]
+
+        var ddmmyy = dataSet[position][6].split("_")
+        holder.date.text = "Date: "+ddmmyy[1]+"/"+ddmmyy[0]+"/"+ddmmyy[2]
+        holder.slot.text = "Time: "+slotArray[dataSet[position][7].toInt()]
+
+        if (dataSet[position][8] != "null") {
+            Picasso.get().load(dataSet[position][8]).into(holder.doctorPhoto)
+        }
 
         holder.cancel.setOnClickListener {
 
@@ -59,8 +67,8 @@ class MyAppointmentsAdapter(
                 // if the dialog is cancelable
                 .setCancelable(false)
                 // positive button text and action
-                .setPositiveButton("Yes", DialogInterface.OnClickListener {
-                        dialog, id -> var loading = LoadingDialogBox(activity)
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+                    var loading = LoadingDialogBox(activity)
                     loading.startLoading()
 
                     var db = FirebaseDatabase.getInstance().getReference("users").child(uID)
@@ -78,8 +86,8 @@ class MyAppointmentsAdapter(
                     loading.cancelLoading()
                 })
                 // negative button text and action
-                .setNegativeButton("No", DialogInterface.OnClickListener {
-                        dialog, id -> dialog.cancel()
+                .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
                 })
 
             // create dialog box
@@ -88,8 +96,6 @@ class MyAppointmentsAdapter(
             alert.setTitle("Cancel Appointment")
             // show alert dialog
             alert.show()
-
-
 
 
         }
@@ -104,6 +110,7 @@ class MyAppointmentsAdapter(
         val doctorContact: TextView = view.findViewById(R.id.list_doctor_contact)
         val date: TextView = view.findViewById(R.id.list_date)
         val slot: TextView = view.findViewById(R.id.list_slot)
+        val dcategory: TextView = view.findViewById(R.id.list_doctor_category)
         var cancel: Button = view.findViewById(R.id.list_cancel)
     }
 }

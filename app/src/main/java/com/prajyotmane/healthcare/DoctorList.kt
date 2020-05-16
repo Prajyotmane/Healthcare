@@ -42,28 +42,28 @@ class DoctorList : AppCompatActivity() {
 
                 for (snapshot in dataSnapshot.children) {
                     if (snapshot.child("city").getValue()
-                            .toString() == userCity && snapshot.child("specialization").getValue()
+                            .toString().toLowerCase() == userCity.toLowerCase() && snapshot.child("specialization").getValue()
                             .toString() == userCategory
                     ) {
                         val dID = snapshot.key.toString()
-                        val name = snapshot.child("firstName").getValue()
+                        val name = "Dr. " + snapshot.child("firstName").getValue()
                             .toString() + " " + snapshot.child("lastName").getValue().toString()
-                        val address = snapshot.child("addressFirst").getValue()
+                        val address = snapshot.child("addressFirst")?.getValue()
                             .toString() + " " + snapshot.child("addressSecond").getValue()
-                            .toString()
-                        val contact = snapshot.child("contact").getValue().toString()
-                        doctorList.add(arrayListOf(dID, name, address, contact))
+                            ?.toString()
+                        val desc = snapshot.child("specialization").getValue().toString()
+                        val url = snapshot.child("PhotoURL").getValue().toString()
+                        doctorList.add(arrayListOf(dID, name, address, desc,url))
                         Log.d("Doctor", name + " " + dID)
                     }
                 }
 
-                if(doctorList.size==0){
+                if (doctorList.size == 0) {
                     no_result_found.text = "No results found"
-                }
-                else{
+                } else {
                     no_result_found.visibility = View.GONE
                     viewManager = LinearLayoutManager(applicationContext)
-                    viewAdapter = DoctorListAdapter(doctorList,applicationContext)
+                    viewAdapter = DoctorListAdapter(doctorList, applicationContext)
                     recyclerView = findViewById<RecyclerView>(R.id.doctorListRecyclerView)
                     recyclerView.layoutManager = viewManager
                     recyclerView.adapter = viewAdapter
@@ -81,15 +81,5 @@ class DoctorList : AppCompatActivity() {
         db.addListenerForSingleValueEvent(postListener)
 
     }
-
-    /*var handler = Handler()
-    handler.postDelayed(Runnable {
-        if(iscomplete){
-            loading.cancelLoading()
-        }
-        else{
-            handler.postDelayed(this, 500)
-        }
-    },500)*/
 
 }

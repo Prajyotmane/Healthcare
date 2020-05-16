@@ -39,10 +39,18 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="2dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/doctor_desc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="5dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/doctor_address"
                     android:layout_width="fill_parent"
@@ -52,12 +60,13 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/doctor_contact"
+                    android:id="@+id/doctor_officehour"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:paddingLeft="5dp"
-                    android:textSize="16sp" />
+                    android:textSize="14sp"
+                    android:text="Hours: 9:00 AM to 7:00 PM (All days)"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

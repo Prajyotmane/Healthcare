@@ -98,8 +98,10 @@ class MyAppointments : AppCompatActivity() {
                             .getValue()?.toString().orEmpty()
                     var spec =
                         dataSnapshot.child(dID).child("specialization").getValue().toString()
+                    var url =
+                        dataSnapshot.child(dID).child("PhotoURL").getValue().toString()
 
-                    dList.add(arrayListOf(dID, name, email, contact, adrs, spec,date,slot))
+                    dList.add(arrayListOf(dID, name, email, contact, adrs, spec,date,slot,url))
                 }
 
                 if (dList.size == 0) {

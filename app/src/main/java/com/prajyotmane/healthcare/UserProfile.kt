@@ -10,10 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_default_home_page.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
@@ -24,6 +21,8 @@ class UserProfile : Fragment() {
     private var param2: String? = null
     lateinit var mAuth: FirebaseAuth
     lateinit var loading: LoadingDialogBox
+    lateinit var postListener:ValueEventListener
+    lateinit var db:DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +30,9 @@ class UserProfile : Fragment() {
         mAuth = FirebaseAuth.getInstance()
         loading = LoadingDialogBox(activity as Activity)
         var uID = mAuth.currentUser!!.uid
-        var db = FirebaseDatabase.getInstance().getReference("users")
+        db = FirebaseDatabase.getInstance().getReference("users")
         loading.startLoading()
-        val postListener = object : ValueEventListener {
+        postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var fname =
                     dataSnapshot.child(uID).child("firstName").getValue()
@@ -59,21 +58,30 @@ class UserProfile : Fragment() {
                     gender.text = "Not specified"
                 }
                 else{
-                    gender.text = gendr.toString()
+                    if(gendr.toString() == "0"){
+                        gender.text = "Not Specified"
+                    }else if(gendr.toString()=="1"){
+                        gender.text = "Male"
+                    }else if(gendr.toString()=="2"){
+                        gender.text = "Female"
+                    }else{
+                        gender.text = "Other"
+                    }
+
                 }
-                if(adrs==null){
+                if(adrs==null || adrs.toString().length==0){
                     address.text = "Not specified"
                 }
                 else{
                     address.text = adrs.toString()
                 }
-                if(savedCity==null){
+                if(savedCity==null || savedCity.toString().length==0){
                     city.text = "Not specified"
                 }
                 else{
                     city.text = savedCity.toString()
                 }
-                if(savedZip==null){
+                if(savedZip==null || savedZip.toString().length==0){
                     zip.text = "Not specified"
                 }
                 else{
@@ -100,6 +108,11 @@ class UserProfile : Fragment() {
             startActivity(Intent(context,UserInfoUpdate::class.java))
         }
         return view
+    }
+
+    override fun onDestroy() {
+        db.removeEventListener(postListener)
+        super.onDestroy()
     }
 
 }

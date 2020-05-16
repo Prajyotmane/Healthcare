@@ -11,20 +11,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyAppointments"></activity>
-        <activity android:name=".ConfirmSlot" />
-        <activity android:name=".ConfirmBooking" />
-        <activity android:name=".BookAppointment" />
-        <activity android:name=".DoctorDetailInfo" />
-        <activity android:name=".DoctorList" />
+        <activity android:name=".WelcomePage"></activity>
+        <activity
+            android:name=".MyAppointments"
+            android:label="@string/appointments" />
+        <activity
+            android:name=".ConfirmSlot"
+            android:label="@string/confirm" />
+        <activity
+            android:name=".BookAppointment"
+            android:label="@string/book_appointment" />
+        <activity
+            android:name=".DoctorDetailInfo"
+            android:label="@string/details" />
+        <activity
+            android:name=".DoctorList"
+            android:label="@string/doctors" />
         <activity
             android:name=".UserInfoUpdate"
+            android:label="@string/edit"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".HomePage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/login" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Splash">
@@ -34,6 +49,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DoctorAppointment"></activity>
+        <activity android:name=".DoctorInfoUpdate" />
+        <activity android:name=".DoctorLogin" />
+        <activity android:name=".DoctorRegistration" />
+        <activity
+            android:name=".DoctorNavigationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

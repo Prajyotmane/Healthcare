@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#14000000"
+    android:padding="16dp"
+    android:theme="@style/AppTheme"
+    tools:context=".DoctorLogin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/loginPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/doc_login"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#272224">
+
+            <EditText
+                android:id="@+id/loginEmailText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:hint="@string/email_text"
+                android:inputType="textEmailAddress"
+                tools:layout_editor_absoluteX="26dp"
+                tools:layout_editor_absoluteY="513dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#272224">
+        <EditText
+            android:id="@+id/loginPasswordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/password_text"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="653dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/docLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_login_button"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/loginRegButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doc_login_reg"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</ScrollView>

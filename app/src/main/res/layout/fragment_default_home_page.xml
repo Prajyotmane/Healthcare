@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".DefaultHomePage"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:padding="2dp"
+    android:background="#14000000">
         <LinearLayout
             android:id="@+id/location_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/cardview_shadow_start_color">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -39,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Select Category"
+        android:layout_margin="5dp"
+        android:text="Find Doctors in top speciality"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="18sp"

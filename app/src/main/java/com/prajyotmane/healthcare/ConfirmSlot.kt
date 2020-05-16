@@ -43,15 +43,19 @@ class ConfirmSlot : AppCompatActivity() {
                 var email =
                     dataSnapshot.child(dID).child("email").getValue()
                 var adrs =
-                    dataSnapshot.child(dID).child("Address").getValue()
-                var savedCity =
-                    dataSnapshot.child(dID).child("City").getValue()
-                var savedZip =
-                    dataSnapshot.child(dID).child("Zip").getValue()
+                    dataSnapshot.child(dID).child("addressFirst").getValue()
+                        ?.toString() + " " + dataSnapshot.child(dID).child("addressSecond")
+                        .getValue()?.toString() + " " + dataSnapshot.child(dID).child("city")
+                        .getValue()?.toString() + " " + dataSnapshot.child(dID).child("pincode")
+                        .getValue()?.toString()
 
                 dconf_Name.setText(fname.toString() + " " + lname.toString())
-                dconf_Address.setText(adrs.toString() + ", " + savedCity.toString() + " - " + savedZip.toString())
-                dconf_Contact.setText(contact.toString())
+                dconf_Address.setText(adrs)
+                if(contact!=null){
+                    dconf_Contact.setText(contact.toString())
+                }else{
+                    dconf_Contact.setText("Not Available")
+                }
                 dconf_Email.setText(email.toString())
                 loading.cancelLoading()
             }
